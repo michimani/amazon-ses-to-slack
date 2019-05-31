@@ -144,7 +144,7 @@ def get_optimized_message_data(plain_text_message_body, raw_message_data):
         r'(-+ Forwarded message -+)\r\n', '', plain_text_message_body).strip()
 
     # add From, Date, Subject if those are not exists
-    if re.match(r'.*From: <.*>', plain_text_message_body) is None:
+    if re.match(r'From.*<.*>', plain_text_message_body) is None:
         metadata = get_original_metadata(raw_message_data)
         metadata_part = 'From: <{}>\nDate: {}\nSubject: {}\nTo: <{}>\n\n\n'.format(
             metadata['from'], metadata['date'], metadata['subject'], metadata['to'])
