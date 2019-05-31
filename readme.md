@@ -39,3 +39,12 @@ This is a AWS Lambda function for notifying receiving e-mail with Amazon SES to 
 At the case that you forwarded an email you received via Gmail to an email address configured in Amazon SES, it will be notified to Slack as follows:
 
 <img width="1065" alt="2019-05-31_104227" src="https://user-images.githubusercontent.com/9986092/58675892-3f7a7f80-8391-11e9-8953-a8662f740bb1.png">
+
+# Run as CLI
+You can run this function on the command line. 
+
+```
+$ python3 lambda_function.py {message_id}
+```
+
+For `{message_id}`, please pass a message ID generated using random alphanumeric generated issued by Amazon SES.
