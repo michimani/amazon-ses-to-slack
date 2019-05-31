@@ -1,10 +1,10 @@
 [aws]
-backet =
+backet = your-s3-backet-name
 
 [slack]
-hook_url =
-api_token =
-channel =
-channel_id =
+hook_url = https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK/URL
+api_token = xoxp-your-slack-api-token
+channel = your-slack-channel-name
+channel_id = YOUR-SLACK-CHANNEL-ID
 icon_emoji = :robot_face:
 attachment_color = #7e1083
