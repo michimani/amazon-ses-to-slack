@@ -1,0 +1,10 @@
+[aws]
+backet =
+
+[slack]
+hook_url =
+api_token =
+channel =
+channel_id =
+icon_emoji = :robot_face:
+attachment_color = #7e1083
