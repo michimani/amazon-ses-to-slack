@@ -74,14 +74,18 @@ def get_message_data(message_id):
 
 def get_body_as_plain_text(message_data):
     try:
+        exists_html = exists_html_text(message_data)
         encode_idx = 2
-        m = re.search(
-            r'Content-Type: text/plain;( charset="?UTF-8"?|[\s\S]*charset=utf-8)\r\nContent-Transfer-Encoding: (base64|quoted-printable)([\s\S]*)(\r\n)+--[\s\S]*Content-', message_data)
+        plain_text_pattern_org = r'Content-Type: text/plain;( charset="?UTF-8"?|[\s\S]*charset=utf-8)\r\nContent-Transfer-Encoding: (base64|quoted-printable)([\s\S]*)(\r\n)+--[\s\S]*Content-'
+        plain_text_pattern_other = r'Content-Transfer-Encoding: (base64|quoted-printable)\r\nContent-Type: text/plain;( charset="?UTF-8"?|[\s\S]*charset=utf-8)([\s\S]*)(\r\n)+--[\s\S]*Content-'
+        if exists_html is False:
+            plain_text_pattern_org = r'Content-Type: text/plain;( charset="?UTF-8"?|[\s\S]*charset=utf-8)\r\nContent-Transfer-Encoding: (base64|quoted-printable)([\s\S]*)(\r\n)+'
+            plain_text_pattern_other = r'Content-Transfer-Encoding: (base64|quoted-printable)\r\nContent-Type: text/plain;( charset="?UTF-8"?|[\s\S]*charset=utf-8)([\s\S]*)(\r\n)+'
 
+        m = re.search(plain_text_pattern_org, message_data)
         if m is None:
             encode_idx = 1
-            m = re.search(
-                r'Content-Transfer-Encoding: (base64|quoted-printable)\r\nContent-Type: text/plain;( charset="?UTF-8"?|[\s\S]*charset=utf-8)([\s\S]*)(\r\n)+--[\s\S]*Content-', message_data)
+            m = re.search(plain_text_pattern_other, message_data)
 
         encode_type = m.group(encode_idx)
         message_body = decode_message_body(m.group(3), encode_type)
@@ -162,6 +166,11 @@ def get_optimized_message_data(plain_text_message_body, raw_message_data):
         optimized_data['summary'] = plain_text_message_body
 
     return optimized_data
+
+
+def exists_html_text(raw_message_data):
+    m = re.search(r'Content-Type: text/html', raw_message_data)
+    return m is not None
 
 
 def get_original_metadata(raw_message_data):
