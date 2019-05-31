@@ -40,7 +40,7 @@ At the case that you forwarded an email you received via Gmail to an email addre
 
 <img width="1065" alt="2019-05-31_104227" src="https://user-images.githubusercontent.com/9986092/58675892-3f7a7f80-8391-11e9-8953-a8662f740bb1.png">
 
-# Run as CLI
+# Run manually
 You can run this function on the command line. 
 
 ```
